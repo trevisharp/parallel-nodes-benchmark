@@ -1,8 +1,9 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 
 public abstract class Scenario
 {
-    public int[] Run<M>(params int[] sizes)
+    public async Task<int[]> Run<M>(params int[] sizes)
         where M : Model, new()
     {
         List<int> count = new List<int>();
@@ -13,7 +14,7 @@ public abstract class Scenario
             
             model.Add(new StopNode());
             load(model, size);
-            model.Run();
+            await model.Run();
             
             count.Add(model.NodeCount);
         }

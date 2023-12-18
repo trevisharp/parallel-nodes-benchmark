@@ -1,14 +1,15 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class Node
 {
     public NodeSize Size { get; set; }
     public ProcessType Type { get; set; }
 
-    public List<Node> MainChildren { get; set; }
-    public List<Node> TriggerChildren { get; set; }
+    public List<Node> MainChildren { get; set; } = new();
+    public List<Node> TriggerChildren { get; set; } = new();
     
     public virtual void Run(Model model)
     {
@@ -37,9 +38,9 @@ public class Node
 
 public class StopNode : Node
 {
-    public override void Run(Model model)
+    public override async void Run(Model model)
     {
-        Thread.Sleep(2000);
+        await Task.Delay(2000);
         model.Stop();
     }
 }
