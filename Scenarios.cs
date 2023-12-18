@@ -36,8 +36,12 @@ public class OceanScenario : Scenario
         for (int i = 0; i < nodeCount; i++)
         {
             Node node = new Node();
-            node.Type = ProcessType.Blocking;
-            node.Size = NodeSize.Small;
+            node.Type = i % 10 == 0 ?
+                ProcessType.Mixed :
+                ProcessType.NonBlocking;
+            node.Size = i % 25 == 0 ?
+                NodeSize.Medium :
+                NodeSize.Small;
             main.TriggerChildren.Add(node);
         }
 

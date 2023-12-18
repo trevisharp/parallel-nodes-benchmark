@@ -1,3 +1,6 @@
 ﻿using System;
+ 
+const int N = 10_000;
 
-Benchmark.Test<NavyModel, OceanScenario>(10, 1_000, 100_000); 
+Benchmark.Test<NavyModel, OceanScenario>(N);
+Benchmark.Test<FirstModel, OceanScenario>(N);

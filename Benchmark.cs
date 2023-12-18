@@ -10,32 +10,18 @@ public static class Benchmark
         var scenario = new S();
         int[] fullRes = new int[sizes.Length];
 
-        for (int i = 0; i < 5; i ++)
+        const int K = 3;
+        for (int i = 0; i < K; i ++)
         {
-            var loadBar = string.Concat(
-                "12345".Select((c, j) => j < i ? '█' : ' ')
-            );
-
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("┌─────┐");
-            Console.WriteLine($"│{loadBar}│");
-            Console.WriteLine("└─────┘");
-
             var results = scenario.Run<M>(sizes);
             for (int n = 0; n < results.Length; n++)
                 fullRes[n] += results[n];
         }
-        
-        Console.Clear();
-        Console.WriteLine("┌─────┐");
-        Console.WriteLine("│█████│");
-        Console.WriteLine("└─────┘");
 
         for (int n = 0; n < fullRes.Length; n++)
         {
             Console.WriteLine($"{typeof(M).Name} on {typeof(S).Name}:");
-            Console.WriteLine($"\t{sizes[n]} -> {fullRes[n] / 5}");
+            Console.WriteLine($"\t{sizes[n]} -> {fullRes[n] / K}");
         }
     }
 }
