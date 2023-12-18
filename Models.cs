@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 
@@ -9,7 +10,7 @@ public class NavyModel : Model
     public override void Add(Node node)
         => queue.Enqueue(node);
 
-    public override async Task Run()
+    public override void Run()
     {
         while (isRunning)
         {
@@ -19,7 +20,7 @@ public class NavyModel : Model
             
             this.NodeCount++;
 
-            await Task.Run(() => node.Run(this));
+            ThreadPool.QueueUserWorkItem(_ => node.Run(this));
         }
     }
 

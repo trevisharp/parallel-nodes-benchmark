@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public abstract class Scenario
 {
-    public async Task<int[]> Run<M>(params int[] sizes)
+    public int[] Run<M>(params int[] sizes)
         where M : Model, new()
     {
         List<int> count = new List<int>();
@@ -14,7 +14,7 @@ public abstract class Scenario
             
             model.Add(new StopNode());
             load(model, size);
-            await model.Run();
+            model.Run();
             
             count.Add(model.NodeCount);
         }

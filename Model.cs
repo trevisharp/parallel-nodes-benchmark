@@ -7,7 +7,7 @@ public abstract class Model
 
     public abstract void Add(Node node);
     
-    public abstract Task Run();
+    public abstract void Run();
 
     public abstract void Stop();
 }

@@ -1,9 +1,9 @@
 using System;
-using System.Threading.Tasks;
+using System.Linq;
 
 public static class Benchmark
 {
-    public static async Task Test<M, S>(params int[] sizes)
+    public static void Test<M, S>(params int[] sizes)
         where M : Model, new()
         where S : Scenario, new()
     {
@@ -12,7 +12,16 @@ public static class Benchmark
 
         for (int i = 0; i < 5; i ++)
         {
-            var results = await scenario.Run<M>(sizes);
+            var loadBar = string.Concat(
+                "12345".Select((c, j) => j < i ? '█' : ' ')
+            );
+
+            Console.Clear();
+            Console.WriteLine("┌─────┐");
+            Console.WriteLine($"│{loadBar}│");
+            Console.WriteLine("└─────┘");
+
+            var results = scenario.Run<M>(sizes);
             for (int n = 0; n < results.Length; n++)
                 fullRes[n] += results[n];
         }
