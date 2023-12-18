@@ -1,4 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System;
+﻿using System;
 
-Benchmark.Test<NavyModel, SimpleScenario>(1); 
+Benchmark.Test<NavyModel, OceanScenario>(10, 1_000, 100_000); 

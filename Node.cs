@@ -1,10 +1,11 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 public class Node
 {
+    public int LimitRun { get; set; } = 10;
+    public bool IsMain { get; set; } = false;
     public NodeSize Size { get; set; }
     public ProcessType Type { get; set; }
 
@@ -13,6 +14,13 @@ public class Node
     
     public virtual void Run(Model model)
     {
+        if (LimitRun == 0 && IsMain)
+        {
+            model.Stop();
+            return;
+        }
+        LimitRun--;
+
         var rnd = Random.Shared;
         int N = Size switch {
             NodeSize.Large => rnd.Next(500, 1000),
@@ -31,17 +39,8 @@ public class Node
             model.Add(node);
         
         foreach (var node in this.TriggerChildren)
-            if (rnd.NextSingle() < .1f)
+            if (rnd.NextSingle() < .02f)
                 model.Add(node);
-    }
-}
-
-public class StopNode : Node
-{
-    public override async void Run(Model model)
-    {
-        await Task.Delay(2000);
-        model.Stop();
     }
 }
 

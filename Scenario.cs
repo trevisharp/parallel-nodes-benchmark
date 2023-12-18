@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Collections.Generic;
 
 public abstract class Scenario
@@ -7,16 +7,17 @@ public abstract class Scenario
         where M : Model, new()
     {
         List<int> count = new List<int>();
+        var sw = new Stopwatch();
 
         foreach (var size in sizes)
         {
             var model = new M();
             
-            model.Add(new StopNode());
             load(model, size);
-            model.Run();
             
-            count.Add(model.NodeCount);
+            sw.Restart();
+            model.Run();
+            count.Add((int)sw.ElapsedMilliseconds);
         }
 
         return count.ToArray();

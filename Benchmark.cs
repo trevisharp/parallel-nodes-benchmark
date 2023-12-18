@@ -17,6 +17,7 @@ public static class Benchmark
             );
 
             Console.Clear();
+            Console.WriteLine();
             Console.WriteLine("┌─────┐");
             Console.WriteLine($"│{loadBar}│");
             Console.WriteLine("└─────┘");
@@ -25,6 +26,11 @@ public static class Benchmark
             for (int n = 0; n < results.Length; n++)
                 fullRes[n] += results[n];
         }
+        
+        Console.Clear();
+        Console.WriteLine("┌─────┐");
+        Console.WriteLine("│█████│");
+        Console.WriteLine("└─────┘");
 
         for (int n = 0; n < fullRes.Length; n++)
         {

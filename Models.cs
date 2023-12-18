@@ -1,5 +1,4 @@
 using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Concurrent;
 
 public class NavyModel : Model
@@ -19,7 +18,6 @@ public class NavyModel : Model
                 continue;
             
             this.NodeCount++;
-
             ThreadPool.QueueUserWorkItem(_ => node.Run(this));
         }
     }
